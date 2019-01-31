@@ -1,3 +1,4 @@
+"use strict";
 let depth = 1 << 9;
 let mask = depth - 1;
 let waveTable = [new Float64Array(depth)];

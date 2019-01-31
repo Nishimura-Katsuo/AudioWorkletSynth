@@ -1,3 +1,4 @@
+"use strict";
 // pieced together into a single browser-friendly file from https://github.com/audioplastic/ooura
 
 const cftmdl = function (n, l, aBuffer, wBuffer) {
@@ -939,4 +940,10 @@ class ooura {
 		trans.cdft(this.size, trans.DIRECTION.BACKWARDS, dataBuffer, this.ip.buffer, this.w.buffer);
 	}
 
+}
+
+/* globals module */
+
+if (typeof module !== "undefined") {
+	module.exports = ooura;
 }

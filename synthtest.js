@@ -1,3 +1,4 @@
+"use strict";
 /* global setTimeout cookies fastElement ooura */
 
 const chords = [];
@@ -394,7 +395,7 @@ function dialEvent (data) {
 		break;
 	case 1:
 		cookies.detune = (data[2] - 64) / 100;
-		fineTune.offset.value = noteShift((cookies.pitch | 0) + (cookies.detune | 0)) - 1;
+		fineTune.offset.value = noteShift(cookies.pitch + cookies.detune) - 1;
 		updateStuff();
 		break;
 	default:
@@ -408,15 +409,15 @@ function pitchEvent (data) {
 		return;
 	}
 
-	cookies.pitch = data[2] < 64 ? (data[2] - 64) / 64 : (data[2] - 64) / 63;
+	let newpitch = data[2] < 64 ? (data[2] - 64) / 64 : (data[2] - 64) / 63;
 
-	if (cookies.pitch > 0) {
-		cookies.pitch *= -12; // slide down 12 (octave)
+	if (newpitch > 0) {
+		cookies.pitch = (newpitch * -12) | 0; // slide down 12 with a fretted effect
 	} else {
-		cookies.pitch *= -2; // bend up 5
+		cookies.pitch = newpitch * -2; // bend up 2
 	}
 
-	fineTune.offset.value = noteShift((cookies.pitch | 0) + (cookies.detune | 0)) - 1;
+	fineTune.offset.value = noteShift(cookies.pitch + cookies.detune) - 1;
 	updateStuff();
 }
 
